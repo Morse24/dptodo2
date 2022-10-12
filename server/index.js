@@ -11,12 +11,11 @@ app.use(express.urlencoded({extended: false}))
 
 const port = 3001
 
-app.get("/",async function (req,res) {
+app.get("/new",async function (req,res) {
     try{
         const connection = await mysql.createConnection(config.db)
-        const result = await connection.execute('select * from task')
-        if (!result) result =[] // If there is not data, return empty array.
-        res.status(200).json(result[0])
+        const [result,] = await connection.execute('insert into task (description) values (?)', [req.body.description])
+        res.status(200).json({id:result.insertId})
     } catch(err){
         res.status(500).json({error: err.message})
     }
