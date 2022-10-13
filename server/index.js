@@ -24,4 +24,13 @@ app.get("/",async function (req,res) {
     
 })
 
+app.post("/new",async function(req,res) {
+    try {
+        const connection = await mysql.createConnection(config.db)
+        // Execute prepared statement. 
+        res.status(200).json({id:result.insertId})
+    } catch(err){
+        res.status(500).json({error:err.message})
+    }
+})
 app.listen(port)
