@@ -1,6 +1,6 @@
 drop database if exists todo; 
 
-create database if not exists todo;
+create database todo;
 
 use todo;
 
